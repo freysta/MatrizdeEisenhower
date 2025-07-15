@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz de Eisenhower - 404 Squad Not Found</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        compass: {
+                            orange: '#FF6B35',
+                            blue: '#004AAD',
+                            dark: '#1A1A1A',
+                            gray: '#F5F5F5'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-compass-blue to-compass-dark min-h-screen text-white">
+    <div class="container mx-auto max-w-7xl">
+        <!-- Header -->
+        <header class="bg-white/10 backdrop-blur-sm rounded-b-2xl p-6 mb-8">
+            <div class="flex flex-col lg:flex-row justify-between items-center gap-6">
+                <!-- Brand -->
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-compass-orange rounded-xl flex items-center justify-center">
+                        <i class="fas fa-code text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl lg:text-3xl font-bold text-compass-orange">404 Squad Not Found</h1>
+                        <p class="text-white/80 text-sm">Matriz de Eisenhower</p>
+                    </div>
+                </div>
+
+                <!-- Add Task Section -->
+                <div class="flex gap-3 w-full lg:w-auto lg:max-w-md">
+                    <div class="flex-1 relative">
+                        <i class="fas fa-plus absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60"></i>
+                        <input 
+                            type="text" 
+                            id="taskInput" 
+                            placeholder="Digite uma nova tarefa..."
+                            class="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-compass-orange"
+                        >
+                    </div>
+                    <button 
+                        id="addTaskBtn"
+                        class="px-6 py-3 bg-compass-orange hover:bg-compass-orange/80 rounded-xl font-medium transition-colors flex items-center gap-2"
+                    >
+                        <i class="fas fa-paper-plane"></i>
+                        <span class="hidden sm:inline">Adicionar</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <div class="flex gap-4 mt-6 border-b border-white/20">
+                <button id="matrixTab" class="tab-btn active px-4 py-2 text-compass-orange border-b-2 border-compass-orange">
+                    <i class="fas fa-th-large mr-2"></i>Matriz
+                </button>
+                <button id="historyTab" class="tab-btn px-4 py-2 text-white/60 hover:text-white transition-colors">
+                    <i class="fas fa-history mr-2"></i>Histórico
+                </button>
+                <button id="analyticsTab" class="tab-btn px-4 py-2 text-white/60 hover:text-white transition-colors">
+                    <i class="fas fa-chart-bar mr-2"></i>Analytics
+                </button>
+            </div>
+        </header>
+
+        <!-- Matrix View -->
+        <div id="matrixView" class="view-content">
+            <!-- Axis Labels -->
+            <div class="relative mb-8">
+             
+                <div class="text-center mb-4">
+                    <div class="flex justify-between max-w-4xl mx-auto text-sm font-medium text-white/70">
+                        <span><i class="fas fa-clock mr-1"></i>URGENTE</span>
+                        <span><i class="fas fa-calendar mr-1"></i>NÃO URGENTE</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quadrants Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <!-- Q1: Fazer Primeiro -->
+                <div class="quadrant bg-red-500/10 border-2 border-red-500 rounded-2xl p-6 min-h-96" data-quadrant="1">
+                    <div class="text-center mb-6 pb-4 border-b border-white/20">
+                        <div class="w-12 h-12 bg-red-500 rounded-xl mx-auto mb-3 flex items-center justify-center">
+                            <i class="fas fa-fire text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-red-400">FAZER PRIMEIRO</h3>
+                        <p class="text-white/60 text-sm">Urgente + Importante</p>
+                    </div>
+                    <div class="task-list space-y-3" id="quadrant1"></div>
+                </div>
+
+                <!-- Q2: Agendar -->
+                <div class="quadrant bg-yellow-500/10 border-2 border-yellow-500 rounded-2xl p-6 min-h-96" data-quadrant="2">
+                    <div class="text-center mb-6 pb-4 border-b border-white/20">
+                        <div class="w-12 h-12 bg-yellow-500 rounded-xl mx-auto mb-3 flex items-center justify-center">
+                            <i class="fas fa-calendar-alt text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-yellow-400">AGENDAR</h3>
+                        <p class="text-white/60 text-sm">Importante + Não Urgente</p>
+                    </div>
+                    <div class="task-list space-y-3" id="quadrant2"></div>
+                </div>
+
+                <!-- Q3: Delegar -->
+                <div class="quadrant bg-blue-500/10 border-2 border-blue-500 rounded-2xl p-6 min-h-96" data-quadrant="3">
+                    <div class="text-center mb-6 pb-4 border-b border-white/20">
+                        <div class="w-12 h-12 bg-blue-500 rounded-xl mx-auto mb-3 flex items-center justify-center">
+                            <i class="fas fa-users text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-blue-400">DELEGAR</h3>
+                        <p class="text-white/60 text-sm">Urgente + Não Importante</p>
+                    </div>
+                    <div class="task-list space-y-3" id="quadrant3"></div>
+                </div>
+
+                <!-- Q4: Eliminar -->
+                <div class="quadrant bg-gray-500/10 border-2 border-gray-500 rounded-2xl p-6 min-h-96" data-quadrant="4">
+                    <div class="text-center mb-6 pb-4 border-b border-white/20">
+                        <div class="w-12 h-12 bg-gray-500 rounded-xl mx-auto mb-3 flex items-center justify-center">
+                            <i class="fas fa-trash-alt text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-400">ELIMINAR</h3>
+                        <p class="text-white/60 text-sm">Não Urgente + Não Importante</p>
+                    </div>
+                    <div class="task-list space-y-3" id="quadrant4"></div>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="bg-white/5 rounded-2xl p-6">
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-compass-orange rounded-xl mx-auto mb-2 flex items-center justify-center">
+                            <i class="fas fa-tasks text-white"></i>
+                        </div>
+                        <div class="text-2xl font-bold" id="totalTasks">0</div>
+                        <div class="text-white/60 text-sm">Total</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-red-500 rounded-xl mx-auto mb-2 flex items-center justify-center">
+                            <i class="fas fa-fire text-white"></i>
+                        </div>
+                        <div class="text-2xl font-bold" id="urgentTasks">0</div>
+                        <div class="text-white/60 text-sm">Urgentes</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-yellow-500 rounded-xl mx-auto mb-2 flex items-center justify-center">
+                            <i class="fas fa-calendar text-white"></i>
+                        </div>
+                        <div class="text-2xl font-bold" id="scheduledTasks">0</div>
+                        <div class="text-white/60 text-sm">Agendadas</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-blue-500 rounded-xl mx-auto mb-2 flex items-center justify-center">
+                            <i class="fas fa-users text-white"></i>
+                        </div>
+                        <div class="text-2xl font-bold" id="delegatedTasks">0</div>
+                        <div class="text-white/60 text-sm">Delegadas</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- History View -->
+        <div id="historyView" class="view-content hidden">
+            <div class="bg-white/5 rounded-2xl p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">Histórico de Atividades</h2>
+                    <button id="clearHistoryBtn" class="px-4 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 transition-colors">
+                        <i class="fas fa-trash mr-2"></i>Limpar Histórico
+                    </button>
+                </div>
+                <div id="historyList" class="space-y-3 max-h-96 overflow-y-auto"></div>
+            </div>
+        </div>
+
+        <!-- Analytics View -->
+        <div id="analyticsView" class="view-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white/5 rounded-2xl p-6">
+                    <h3 class="text-xl font-bold mb-4">Produtividade por Quadrante</h3>
+                    <div id="quadrantChart" class="space-y-4"></div>
+                </div>
+                <div class="bg-white/5 rounded-2xl p-6">
+                    <h3 class="text-xl font-bold mb-4">Atividade dos Últimos 7 Dias</h3>
+                    <div id="activityChart" class="space-y-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Modal -->
+    <div id="taskModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-compass-blue rounded-2xl p-6 w-full max-w-md border border-white/20">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold">Editar Tarefa</h3>
+                <button class="close text-white/60 hover:text-white text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-4">
+                <input 
+                    type="text" 
+                    id="editTaskInput" 
+                    placeholder="Nome da tarefa"
+                    class="w-full p-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-compass-orange"
+                >
+                <textarea 
+                    id="editTaskDescription" 
+                    placeholder="Descrição (opcional)"
+                    rows="3"
+                    class="w-full p-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-compass-orange resize-none"
+                ></textarea>
+                
+                <div class="flex gap-3">
+                    <button 
+                        id="saveTaskBtn"
+                        class="flex-1 py-3 bg-compass-orange hover:bg-compass-orange/80 rounded-xl font-medium transition-colors"
+                    >
+                        Salvar
+                    </button>
+                    <button 
+                        id="deleteTaskBtn"
+                        class="px-6 py-3 bg-red-500/20 text-red-400 hover:bg-red-500/30 rounded-xl font-medium transition-colors"
+                    >
+                        Excluir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
